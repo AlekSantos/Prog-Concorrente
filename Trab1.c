@@ -2,6 +2,8 @@
 /* Profa.: Silvana Rossetto */
 /* Laboratório: 1 */
 /* Codigo: "Hello World" usando threads em C e a funcao que espera as threads terminarem */
+// Alguns prints que podem ser necessarios para corecao e foram ultizados para ajudar a fazer de forma correta, foram comentados ao longo do codigo
+
 
 #include <stdio.h>
 #include <stdlib.h> 
