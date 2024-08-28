@@ -5,7 +5,7 @@
 //Programa concorrente
 
 
-
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h> 
 #include <pthread.h> 
@@ -43,7 +43,7 @@ void *CalculaMultiplicacaoVetores (void *tid) {
   pthread_exit((void*) ret);
 }
 double variacaoRelativa(double vs,double vc){
-  double e =(vs-vc)/vs;
+  double e =sqrt(pow(((vs-vc)/vs),2));
   return e;
 }
 
