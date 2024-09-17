@@ -34,7 +34,7 @@ ATIVIDADE 3
 
 
 
-1.Execute o programa e verifique seus resultados. As threads estão executando de forma sincronizada, concluindo uma interação para, então, iniciar outra?  
+2.Execute o programa e verifique seus resultados. As threads estão executando de forma sincronizada, concluindo uma interação para, então, iniciar outra?  
 
 Não, acontece uma bagunça na hora da execução do programa , como por exemplo essa execução :
 
@@ -68,7 +68,8 @@ Thread 4: passo=4
 FIM.
 
 
-2.Descomente a linha 44 (que chama a função "barreira"). Execute novamente o programa e avalie os resultados.  
+3.Descomente a linha 44 (que chama a função "barreira"). Execute novamente o programa e avalie os resultados.  
+
 
 Agora sim o programa funciona da forma que deveria, ele pode executar as threads em ordem diferente mas sempre seguindo o mesmo passo, ou seja todas as threads executam o passo 0 depois o 1 depois o 2 e em diante diferente do que ocorre antes de ter a barreira implementada.
 
