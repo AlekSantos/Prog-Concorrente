@@ -1,0 +1,114 @@
+#include <stdio.h> 
+#include <stdlib.h>
+#include <pthread.h>
+
+
+// o codigo tem um erro que nao consegui consertar de jeito nenhum que é que se eu passar 1 thread ele inicia no 10, se eu passar 2 inicia no 20 , se 3 inicia no 30 etc, não consegui consertar
+// sem quebrar o codigo mas até que funciona kkkkk , tentei manter as caracteristicas originais do codigo e fazer o pedido por isso não consegui realizar completamente
+
+long int soma = 0; // Variável compartilhada entre as threads
+pthread_mutex_t mutex; // Variável de bloqueio para exclusão mútua
+pthread_cond_t cond1,cond2; // variaveis de condições 
+int multiplos = 0; // multiplosador de múltiplos
+int flag=0;// flag que sinaliza quando achado um multiplo
+
+
+void *ExecutaTarefa(void *arg) {
+   long int id = (long int) arg;
+   printf("Thread : %ld esta executando...\n", id);
+    
+
+    for (int i = 0; i < 100000; i++) {
+        // exclusividade para cada thread
+        pthread_mutex_lock(&mutex);
+        soma++;// incrementa a variavel soma
+        //checa se a soma é multiplo de  10
+        if (soma % 10 == 0 && multiplos<=19) {
+            flag=1;
+            pthread_cond_signal(&cond1);// envia o sinal para a thread para printar o valor do múltiplo
+            pthread_cond_wait(&cond2, &mutex);// bloqueia a thread até que seja printado o valor
+            
+        }
+        pthread_mutex_unlock(&mutex);
+      
+    
+          
+    }
+
+    printf("Thread %ld Executa Tarefa - terminou!\n",id);
+    pthread_exit(NULL);
+}
+
+void *extra(void *args) {
+// exclusividade para cada thread
+    pthread_mutex_lock(&mutex);
+    // imprime o múltipĺo se achado
+    while (multiplos < 20) {
+      
+      if(flag){
+         printf("soma = %ld\n", soma);
+         multiplos++;// incrementa o multiplosador
+         flag=0;// reseta a flag para o próximo múltiplo
+         pthread_cond_signal(&cond2);// libera a thread após printar
+        }
+     
+      else{
+   
+        pthread_cond_wait(&cond1, &mutex);// bloqueia a thread caso nenhum multiplo seja enmultiplosrado
+        }
+      
+    }
+    pthread_mutex_unlock(&mutex);
+    pthread_cond_broadcast(&cond2);
+    printf("Extra: terminou!\n");
+   
+    pthread_exit(NULL);
+}
+
+// Fluxo principal
+int main(int argc, char *argv[]) {
+  pthread_t *tid; //identificadores das threads no sistema
+   int nthreads; //qtde de threads (passada linha de comando)
+
+    /* Inicializa o mutex (bloqueio de exclusão mútua) e as variaveis de condição */
+    pthread_mutex_init(&mutex, NULL);
+    pthread_cond_init(&cond1, NULL);
+    pthread_cond_init(&cond2, NULL);
+
+    //--le e avalia os parametros de entrada
+   if(argc<2) {
+      printf("Digite: %s <numero de threads>\n", argv[0]);
+      return 1;
+   }
+   nthreads = atoi(argv[1]);
+
+   //--aloca as estruturas
+   tid = (pthread_t*) malloc(sizeof(pthread_t)*(nthreads+1));
+   if(tid==NULL) {puts("ERRO--malloc"); return 2;}
+
+
+   //--cria as threads
+   for(long int t=0; t<nthreads; t++) {
+     if (pthread_create(&tid[t], NULL, ExecutaTarefa, (void *)t)) {
+       printf("--ERRO: pthread_create()\n"); exit(-1);
+     }
+   }
+
+   //--cria thread de log
+   if (pthread_create(&tid[nthreads], NULL, extra, NULL)) {
+      printf("--ERRO: pthread_create()\n"); exit(-1);
+   }
+
+   //--espera todas as threads terminarem
+   for (int t=0; t<nthreads+1; t++) {
+     if (pthread_join(tid[t], NULL)) {
+         printf("--ERRO: pthread_join() \n"); exit(-1); 
+     } 
+   } 
+
+    pthread_mutex_destroy(&mutex);
+    pthread_cond_destroy(&cond1);
+    pthread_cond_destroy(&cond2);
+    printf("Valor de 'soma' = %ld\n", soma);
+    return 0;
+}
