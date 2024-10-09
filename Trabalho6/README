@@ -107,4 +107,6 @@ ATIVIDADE 3
 partindo para a atividade 3 o que queremos é ultilizar o rwlock para criar uma prioridade para escrita, se uma solicitação de escrita 
 for solicitada, novas operações de leitura não serão aceitas(não poderão iniciar) até que a operação de escrita seja atendida.
 
+tem uma imagem exemplificando a execução!
+
 
