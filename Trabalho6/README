@@ -1,1 +1,108 @@
+Nesse laboratório somos apresentados a implementação de leitor e escritor, onde utilizados concorrência para realizar esse processo de escrita e leitura
+de elementos de uma lista encadeada, utilizando primeiramente o código com somente o lock tradicional e depois utilizando o lock específico para
+operação de escrita e leitura obtemos o seguinte resultado:
+---------------------------------------------------- usando lock normal
 
+%./main_lock 1
+Thread 0: in=100148 out=100339 read=9799513
+Tempo: 0.812759
+%./main_lock 2
+Thread 0: in=50167 out=50010 read=4899823
+Thread 1: in=50167 out=50010 read=4899823
+Tempo: 41.410262
+%./main_lock 3
+Thread 0: in=33452 out=33469 read=3266413
+Thread 1: in=33452 out=33469 read=3266412
+Thread 2: in=33452 out=33469 read=3266412
+Tempo: 37.573475
+%./main_lock 4
+Thread 0: in=25101 out=25053 read=2449846
+Thread 3: in=25101 out=25053 read=2449846
+Thread 1: in=25101 out=25053 read=2449846
+Thread 2: in=25101 out=25053 read=2449846
+Tempo: 37.672501
+%./main_lock 8
+Thread 0: in=12505 out=12466 read=1225029
+Thread 3: in=12505 out=12466 read=1225029
+Thread 1: in=12505 out=12466 read=1225029
+Thread 4: in=12505 out=12466 read=1225029
+Thread 2: in=12505 out=12466 read=1225029
+Thread 7: in=12505 out=12466 read=1225029
+Thread 5: in=12505 out=12466 read=1225029
+Thread 6: in=12505 out=12466 read=1225029
+Tempo: 39.709087
+%./main_lock 16
+Thread 0: in=6221 out=6272 read=612507
+Thread 1: in=6221 out=6272 read=612507
+Thread 2: in=6221 out=6272 read=612507
+Thread 3: in=6221 out=6272 read=612507
+Thread 4: in=6221 out=6272 read=612507
+Thread 5: in=6221 out=6272 read=612507
+Thread 6: in=6221 out=6272 read=612507
+Thread 7: in=6221 out=6272 read=612507
+Thread 10: in=6221 out=6272 read=612507
+Thread 8: in=6221 out=6272 read=612507
+Thread 9: in=6221 out=6272 read=612507
+Thread 11: in=6221 out=6272 read=612507
+Thread 12: in=6221 out=6272 read=612507
+Thread 14: in=6221 out=6272 read=612507
+Thread 13: in=6221 out=6272 read=612507
+Thread 15: in=6221 out=6272 read=612507
+Tempo: 39.296235
+
+=======================================usando lock de escrita e leitura
+
+%./main_rwlock 1
+Thread 0: in=100148 out=100339 read=9799513
+Tempo: 1.712903
+%./main_rwlock 2
+Thread 0: in=50167 out=50010 read=4899823
+Thread 1: in=50167 out=50010 read=4899823
+Tempo: 63.106632
+%./main_rwlock 3
+Thread 0: in=33452 out=33469 read=3266413
+Thread 1: in=33452 out=33469 read=3266412
+Thread 2: in=33452 out=33469 read=3266412
+Tempo: 67.879055
+%./main_rwlock 4
+Thread 0: in=25101 out=25053 read=2449846
+Thread 1: in=25101 out=25053 read=2449846
+Thread 3: in=25101 out=25053 read=2449846
+Thread 2: in=25101 out=25053 read=2449846
+Tempo: 69.670654
+%./main_rwlock 8
+Thread 3: in=12505 out=12466 read=1225029
+Thread 7: in=12505 out=12466 read=1225029
+Thread 0: in=12505 out=12466 read=1225029
+Thread 6: in=12505 out=12466 read=1225029
+Thread 5: in=12505 out=12466 read=1225029
+Thread 4: in=12505 out=12466 read=1225029
+Thread 1: in=12505 out=12466 read=1225029
+Thread 2: in=12505 out=12466 read=1225029
+Tempo: 92.600896
+%./main_rwlock 16
+Thread 0: in=6221 out=6272 read=612507
+Thread 6: in=6221 out=6272 read=612507
+Thread 12: in=6221 out=6272 read=612507
+Thread 7: in=6221 out=6272 read=612507
+Thread 11: in=6221 out=6272 read=612507
+Thread 14: in=6221 out=6272 read=612507
+Thread 13: in=6221 out=6272 read=612507
+Thread 3: in=6221 out=6272 read=612507
+Thread 8: in=6221 out=6272 read=612507
+Thread 2: in=6221 out=6272 read=612507
+Thread 15: in=6221 out=6272 read=612507
+Thread 5: in=6221 out=6272 read=612507
+Thread 4: in=6221 out=6272 read=612507
+Thread 9: in=6221 out=6272 read=612507
+Thread 10: in=6221 out=6272 read=612507
+Thread 1: in=6221 out=6272 read=612507
+Tempo: 101.261956
+%
+Percebemos um aumento perceptivo no tempo para execução, ou seja , nesse cenário o uso do lock normal é mais vantajoso.
+
+ATIVIDADE 3
+
+
+partindo para a atividade 3 o que queremos é ultilizar o rwlock para criar uma prioridade para escrita, se uma solicitação de escrita 
+for solicitada, novas operações de leitura não serão aceitas(não poderão iniciar) até que a operação de escrita seja atendida.
