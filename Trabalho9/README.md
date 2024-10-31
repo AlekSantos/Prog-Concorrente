@@ -2,16 +2,20 @@ Respondendo as perguntas do Laboratório 9
 
 Atividade 1
 
-2. Comente a chamada da função ̃Sleep e avalie o resultado da execução.  O que aconteceu e por que?
+2. Comente a chamada da função Sleep e avalie o resultado da execução.  O que aconteceu e por que?
+
+   Quando comentamos a função sleep o programa principal encerra antes da thread conseguir printar alguma coisa na tela, então o sleep é feito de forma a forçar o programa principal a esperar um tempo antes de finalizar.
 
 
 Atividade 2
 
 2. Por que não foi necessário fazer uma chamada para a função Sleep no código da função main dessa vez?
+  Podemos perceber que quando temos a implementação de um canal, ele faz com que o programa principal espere o canal ser prenchido para seguir em frente na execução no caso a thread é a unica que prenche esse canal ou seja, somente depois da execução do prenchimento do canal que o programa principal pode seguir em frente.
 
-3. Comente a linha msg = <-str e avalie o resultado da execução. O que aconteceu e por quê?
+4. Comente a linha msg = <-str e avalie o resultado da execução. O que aconteceu e por quê?
+   Ocorre que o print dentro da thread não é executado pois não temos mais essa "função" de esperar a thread executar para prencher o canal.
 
-4. Código feito nessa pasta!
+6. Código feito nessa pasta!
 
 Atividade 3
 
