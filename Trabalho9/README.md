@@ -25,8 +25,11 @@ Atividade 3
 
 1. Qual é a finalidade de cada um dos canais criados?
 
+A finalidade do primeiro canal é ser um canal com um buffer imbutido onde o canal tem indice , no exemplo no indice 0 do canal tem a informação que o valor j[0]=1 e assim em diante até o 3 que é o valor que envei pelo canal atraves do for , e o segundo canal é um canal boleano.
 
 2. O que vai acontecer se comentarmos a linha 32?
+
+   O done ta sendo usado como um canal para aguardar a finalização da thread, pois quando a thread é finalizada o valor de done vira True , e a thread encerra , e como no canal principal é esperado o canal do done ser prenchido para seguir o fluxo principal, logo é usado como uma forma de aguardar a thread principal.
 
 
 Atividade 4 
