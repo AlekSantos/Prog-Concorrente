@@ -10,9 +10,12 @@ Atividade 1
 Atividade 2
 
 2. Por que não foi necessário fazer uma chamada para a função Sleep no código da função main dessa vez?
+   
   Podemos perceber que quando temos a implementação de um canal, ele faz com que o programa principal espere o canal ser prenchido para seguir em frente na execução no caso a thread é a unica que prenche esse canal ou seja, somente depois da execução do prenchimento do canal que o programa principal pode seguir em frente.
 
 4. Comente a linha msg = <-str e avalie o resultado da execução. O que aconteceu e por quê?
+
+   
    Ocorre que o print dentro da thread não é executado pois não temos mais essa "função" de esperar a thread executar para prencher o canal.
 
 6. Código feito nessa pasta!
