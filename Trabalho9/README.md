@@ -36,6 +36,10 @@ Atividade 4
 
 1. Altere o código para que a sentença result 1 seja impressa na tela.
 
+É muito simples basta no select aumentar o 
+      case <-time.After(1 * time.Second): 
+Trocando o 1 por um valor maior que o result 1 ja aparece, isso ocorre pois é feito um go que dispara uma thread que vai prencher o canal c1, mas é dado um tempo antes do canal ser prenchido, usando o case ele escolhe printar o result1 se  tiver disponivel  quando rodar e a linha do caso do tempo passado ainda não ter sido concluida , ou seja o tempo passado de objetivo nao ter sido atingido.
+
 Atividade 5 
 
 Código feito nessa pasta!
