@@ -2,7 +2,7 @@ Respondendo as perguntas do Laboratório 9
 
 Atividade 1
 
-2. Comente a chamada da função ̃Sleep e avalie o resultado da execução.  ̃O que aconteceu e por que?
+2. Comente a chamada da função ̃Sleep e avalie o resultado da execução.  O que aconteceu e por que?
 
 
 Atividade 2
